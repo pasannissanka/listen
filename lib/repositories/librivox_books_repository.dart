@@ -1,5 +1,4 @@
-import 'package:Listen/model/book_librivox_API.dart';
-import 'package:Listen/model/librivox_book.dart';
+import 'package:Listen/model/audiobook_lv_API.dart';
 import 'package:Listen/repositories/librivox_api_client.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -9,44 +8,29 @@ class LibrivoxBooksRepository {
   LibrivoxBooksRepository({@required this.librivoxAPIClient})
       : assert(librivoxAPIClient != null);
 
-  Future<List<LibrivoxBook>> getBooksbyID(String id) async {
-    List<LibrivoxBook> books;
+  Future<List<AudioBookLVAPI>> getBooksbyID(String id) async {
     try {
-      final booksAPI = librivoxAPIClient.getBookByID(id);
-      booksAPI.listen((book) {
-        // print('API CALL : $book');
-        librivoxAPIClient.getBookArtwork(book.urlLibrivox).listen((thumbUrl) {
-          // print(thumbUrl);
-          final bookobj = LibrivoxBook(book, thumbUrl);
-          print(bookobj);
-          books.add(bookobj);
-        });
-      });
+      final booksAPI = await librivoxAPIClient.getBookByID(id);
+      for (var i = 0; i < booksAPI.length; i++) {
+        final url =
+            await librivoxAPIClient.getBookArtwork(booksAPI[i].urlLibrivox);
+        booksAPI[i].thumbUrl = url;
+      }
+      return booksAPI;
     } catch (e) {
       throw Exception(e);
     }
-    return books;
   }
 
-  Future<List<BookLibrivoxAPI>> getBooksbyGenre(List<String> genres) async {
-    List<LibrivoxBook> books = <LibrivoxBook>[];
-    // Future<List<LibrivoxBook>> future = new Future<List<LibrivoxBook>>();
+  Future<List<AudioBookLVAPI>> getBooksbyGenre(List<String> genres) async {
     try {
-      final booksAPI = librivoxAPIClient.getBookByGenre(genres);
-      int count = 0;
-      // booksAPI.listen(
-      //   (book) {
-      //     // print('API CALL : $book');
-      //     librivoxAPIClient.getBookArtwork(book.urlLibrivox).listen((thumbUrl) {
-      //       // print(thumbUrl);
-      //       // final bookobj = LibrivoxBook(book, thumbUrl);
-      //       count++;
-      //       print('$count');
-      //       books.add(LibrivoxBook(book, thumbUrl));
-      //     });
-      //   },
-      // );
-      return booksAPI.toList();
+      final booksAPI = await librivoxAPIClient.getBookByGenre(genres);
+      for (var i = 0; i < booksAPI.length; i++) {
+        final url =
+            await librivoxAPIClient.getBookArtwork(booksAPI[i].urlLibrivox);
+        booksAPI[i].thumbUrl = url;
+      }
+      return booksAPI;
     } catch (e) {
       throw Exception(e);
     }

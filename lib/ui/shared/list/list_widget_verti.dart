@@ -1,5 +1,4 @@
-import 'package:Listen/model/book_librivox_API.dart';
-import 'package:Listen/model/librivox_book.dart';
+import 'package:Listen/model/audiobook_lv_API.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,7 @@ class ListWidgetVerticle extends StatelessWidget {
   const ListWidgetVerticle({Key key, @required this.librivoxBook})
       : super(key: key);
 
-  final BookLibrivoxAPI librivoxBook;
+  final AudioBookLVAPI librivoxBook;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class ListWidgetVerticle extends StatelessWidget {
                     aspectRatio: 1.0,
                     child: CachedNetworkImage(
                       imageUrl:
-                          'http://archive.org/download/secret_garden_librivox/Secret_Garden_1003.jpg',
+                          librivoxBook.thumbUrl,
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) =>
                               CircularProgressIndicator(

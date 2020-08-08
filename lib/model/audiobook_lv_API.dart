@@ -2,10 +2,10 @@ import 'package:Listen/model/author.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'book_librivox_API.g.dart';
+part 'audiobook_lv_API.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class BookLibrivoxAPI extends Equatable{
+class AudioBookLVAPI extends Equatable{
 
   final String id;
 
@@ -43,7 +43,14 @@ class BookLibrivoxAPI extends Equatable{
 
   final List<Author> authors;
 
-  BookLibrivoxAPI(
+  @JsonKey(ignore: true)
+  String _thumbUrl;
+
+  String get thumbUrl => this._thumbUrl;
+
+  set thumbUrl(String thumbUrl) => this._thumbUrl = thumbUrl;
+
+  AudioBookLVAPI(
     this.id,
     this.title,
     this.description,
@@ -61,9 +68,9 @@ class BookLibrivoxAPI extends Equatable{
     this.authors,
   );
 
-  factory BookLibrivoxAPI.fromJson(Map<String, dynamic> json) => _$BookLibrivoxAPIFromJson(json);
+  factory AudioBookLVAPI.fromJson(Map<String, dynamic> json) => _$AudioBookLVAPIFromJson(json);
 
-  Map<String, dynamic> toJson() => _$BookLibrivoxAPIToJson(this);
+  Map<String, dynamic> toJson() => _$AudioBookLVAPIToJson(this);
 
   @override
   List<Object> get props => [

@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'book_librivox_API.dart';
+part of 'audiobook_lv_API.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BookLibrivoxAPI _$BookLibrivoxAPIFromJson(Map<String, dynamic> json) {
-  return BookLibrivoxAPI(
+AudioBookLVAPI _$AudioBookLVAPIFromJson(Map<String, dynamic> json) {
+  return AudioBookLVAPI(
     json['id'] as String,
     json['title'] as String,
     json['description'] as String,
@@ -26,10 +26,10 @@ BookLibrivoxAPI _$BookLibrivoxAPIFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : Author.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-  );
+  )..thumbUrl = json['thumbUrl'] as String;
 }
 
-Map<String, dynamic> _$BookLibrivoxAPIToJson(BookLibrivoxAPI instance) =>
+Map<String, dynamic> _$AudioBookLVAPIToJson(AudioBookLVAPI instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
@@ -46,4 +46,5 @@ Map<String, dynamic> _$BookLibrivoxAPIToJson(BookLibrivoxAPI instance) =>
       'totaltimesecs': instance.totaltimesecs,
       'totaltime': instance.totaltime,
       'authors': instance.authors?.map((e) => e?.toJson())?.toList(),
+      'thumbUrl': instance.thumbUrl,
     };
