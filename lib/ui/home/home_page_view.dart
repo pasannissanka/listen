@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:Listen/blocs/books_fetch_bloc.dart';
+import 'package:Listen/model/audiobook_lv_API.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:Listen/ui/shared/list/list_widget_horiz.dart';
 import 'package:Listen/ui/shared/list/list_widget_verti.dart';
@@ -44,10 +45,14 @@ class _HomePageViewState extends State<HomePageView> {
              );
            }
            if (state is AudioBooksLoadSuccess) {
-             final books = state.audioBooks;
-              return ListView(
-                children: List.generate(books.length, (i) => ListWidgetVerticle(librivoxBook: books[i],)),
-              );
+             final booksMap = state.audioBooks;
+
+              return ListView.builder(
+                itemCount: booksMap.length,
+                itemBuilder: (BuildContext context, int index) {
+                  AudioBookLVAPI book = booksMap.values.elementAt(index);
+                  return ListWidgetVerticle(librivoxBook: book);
+                });
            }
            if (state is AudioBooksLoadFailure) {
              return Center(

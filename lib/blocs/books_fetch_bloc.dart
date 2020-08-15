@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:Listen/model/audiobook_lv_API.dart';
 import 'package:Listen/repositories/librivox_books_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -36,7 +38,8 @@ class AudioBooksInitial extends AudioBooksState {}
 class AudioBooksLoadInProgress extends AudioBooksState {}
 
 class AudioBooksLoadSuccess extends AudioBooksState {
-  final List<AudioBookLVAPI> audioBooks;
+  // final List<AudioBookLVAPI> audioBooks;
+  final HashMap<int,AudioBookLVAPI> audioBooks;
 
   const AudioBooksLoadSuccess({@ required this.audioBooks}) : assert(audioBooks != null);
 
@@ -63,7 +66,7 @@ class AudioBooksBloc extends Bloc<AudioBooksFetchEvent, AudioBooksState> {
   Stream<AudioBooksState> _mapBooksRequestedToState(AudioBooksFetchRequested event) async* {
     yield AudioBooksLoadInProgress();
     try {
-      final List<AudioBookLVAPI> books = await librivoxBooksRepository.getBooksbyGenre(event.genres);
+      final HashMap<int,AudioBookLVAPI>  books = await librivoxBooksRepository.getBooksbyGenre(event.genres);
       yield AudioBooksLoadSuccess(audioBooks: books);
     } catch (e) {
       yield AudioBooksLoadFailure();

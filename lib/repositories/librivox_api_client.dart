@@ -29,7 +29,7 @@ class LibrivoxAPIClient {
     for (var i in genres) {
       genre += '&genre=$i';
     }
-    final url = Uri.encodeFull('$baseURL/?$genre&format=json');
+    final url = Uri.encodeFull('$baseURL/?$genre&format=json&limit=10');
     try {
       final res = await httpClient.get(url);
       return _parseBooksAPI(res.body);

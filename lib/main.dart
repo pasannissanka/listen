@@ -43,7 +43,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   int _currentIndex = 0;
-  bool _bottomPlayer = true;
+  bool _bottomPlayer = false;
 
 
   @override
