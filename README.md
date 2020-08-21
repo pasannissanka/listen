@@ -5,6 +5,6 @@ Plans to Extend for Podcast in future. (Work in progress)
 
 ## TODO
 
-*Local storage
-*Sorting
-*...
+* Local storage
+* Sorting
+* ...
